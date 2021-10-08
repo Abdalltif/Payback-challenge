@@ -1,8 +1,11 @@
 package com.abdalltif.paybackchallenge.data.models
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Photo(
     @SerializedName("collections")
     val collections: Int,
@@ -48,4 +51,4 @@ data class Photo(
     val webformatURL: String,
     @SerializedName("webformatWidth")
     val webformatWidth: Int
-)
+) : Parcelable

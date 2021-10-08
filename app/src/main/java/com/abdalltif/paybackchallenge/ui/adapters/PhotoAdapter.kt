@@ -49,7 +49,7 @@ class PhotoAdapter(
         // Click listener.
         holder.binding.root.setOnClickListener {
 //            Toast.makeText(holder.itemView.context, "${photoList[position].user} Clicked!", Toast.LENGTH_SHORT).show()
-            val action = MainFragmentDirections.actionMainFragmentToDetailsFragment()
+            val action = MainFragmentDirections.actionMainFragmentToDetailsFragment( photoList[position] )
             navController.navigate(action)
 
         }
