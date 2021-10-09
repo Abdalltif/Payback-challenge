@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -19,8 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.abdalltif.paybackchallenge.MainActivity
 import com.abdalltif.paybackchallenge.R
 import com.abdalltif.paybackchallenge.data.models.Photo
+import com.abdalltif.paybackchallenge.databinding.FragmentDetailsBinding
+import com.abdalltif.paybackchallenge.databinding.FragmentMainBinding
 import com.abdalltif.paybackchallenge.databinding.PhotoItemBinding
 import com.abdalltif.paybackchallenge.ui.fragments.MainFragmentDirections
 import com.abdalltif.paybackchallenge.utils.AppDiffUtil
@@ -39,15 +43,14 @@ class PhotoAdapter(
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        // set image
+        // pass photo object to view.
+        holder.binding.mPhoto = photoList[position]
+        // set image with coil
         holder.binding.imageView.load(photoList[position].previewURL) {
             placeholder(R.drawable.ic_image_ph)
             crossfade(true)
             transformations(RoundedCornersTransformation(5f))
         }
-
-        // Set username
-        holder.binding.textName.setText(photoList[position].user)
 
         // Click listener.
         holder.binding.root.setOnClickListener {
@@ -67,17 +70,20 @@ class PhotoAdapter(
 
         // Init tags recyclerview.
         if ( !photoList[position].tags.isEmpty() ) {
+
             val tagsRecyclerView = holder.binding.recyclerTags
+
             tagsRecyclerView.apply {
                 // Convert tags string to list and trim spaces.
                 val str = photoList[position].tags
                 val words = str.split("\\,".toRegex()).map {
                     it.trim()
                 }
-                // Set the adapter.
+                // Set the adapter horizontally.
                 adapter = TagsAdapter(words)
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
+
         }
     }
 
