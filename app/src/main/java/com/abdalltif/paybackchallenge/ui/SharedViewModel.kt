@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel
 @Inject constructor (
-    private val app: Application,
+    app: Application,
     private val repository: MainRepository,
     private val roomRepository: MainRoomRepository
 ) : AndroidViewModel(app) {

@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abdalltif.paybackchallenge.R
+import com.abdalltif.paybackchallenge.data.models.Photo
 import com.abdalltif.paybackchallenge.databinding.FragmentMainBinding
 import com.abdalltif.paybackchallenge.ui.adapters.PhotoAdapter
 import com.abdalltif.paybackchallenge.ui.SharedViewModel
@@ -109,18 +110,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 val photoList = response.body()!!.hits
                 photoAdapter.setPhotos(photoList)
 
-                // Cache data in background
-                photoList.forEach { photo ->
-                    viewModel.addPhoto(photo)
-                }
+                // Cache the data in background thread.
+                cacheData(photoList)
 
             } else {
 
                 binding.progressBar.visibility = GONE
-                Toast.makeText(requireContext(), "Network Error!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.network_error), Toast.LENGTH_SHORT).show()
 
             }
         } )
+    }
+
+    private fun cacheData(photoList: List<Photo>) {
+        photoList.forEach { photo ->
+            viewModel.addPhoto(photo)
+        }
     }
 
     private fun observeLocalData(){
@@ -133,7 +138,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             binding.progressBar.visibility = GONE
 
             photoAdapter.setPhotos(photos)
-
         } )
     }
 }
