@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="mviewmodel"
-            type="com.abdalltif.paybackchallenge.ui.SharedViewModel"
+            name="mPhoto"
+            type="com.abdalltif.paybackchallenge.data.models.Photo"
         />
     </data>
 
@@ -37,7 +37,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
                 android:textSize="22sp"
-                android:text="user name"
+                android:text="@{mPhoto.user}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_details" />
 
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="253" />
+                    android:text="@{String.valueOf(mPhoto.likes)}" />
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="34" />
+                    android:text="@{String.valueOf(mPhoto.comments)}" />
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -104,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="94"/>
+                    android:text="@{String.valueOf(mPhoto.downloads)}"/>
 
             </LinearLayout>
 

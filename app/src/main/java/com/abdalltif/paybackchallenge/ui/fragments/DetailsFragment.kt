@@ -19,30 +19,25 @@ import com.abdalltif.paybackchallenge.ui.SharedViewModel
 class DetailsFragment : Fragment(R.layout.fragment_details) {
     val args: DetailsFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailsBinding
-    private val viewModel: SharedViewModel by activityViewModels()
     lateinit var photo: Photo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Init data binding.
-        binding = DataBindingUtil.setContentView<FragmentDetailsBinding>(requireActivity(), R.layout.fragment_details).apply {
-            this.mviewmodel = viewModel
-            this.lifecycleOwner = requireActivity()
-        }
 
         photo = args.photo
+
+        // Init data binding.
+        binding = DataBindingUtil.setContentView<FragmentDetailsBinding>(requireActivity(), R.layout.fragment_details).apply {
+            this.mPhoto = photo
+            this.lifecycleOwner = requireActivity()
+        }
 
         binding.imageViewDetails.load(photo.largeImageURL) {
             placeholder(R.drawable.ic_image_ph)
             crossfade(true)
         }
-
-        binding.txtUsernameDetails.text = "${photo.user}"
-        binding.txtLikes.text = "${photo.likes}"
-        binding.txtComments.text = "${photo.comments}"
-        binding.txtDownloads.text = "${photo.downloads}"
 
         // Convert tags string to list and trim spaces.
         val str = photo.tags
