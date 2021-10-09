@@ -6,10 +6,11 @@ import com.abdalltif.paybackchallenge.utils.Constants
 import retrofit2.Response
 import javax.inject.Inject
 
-class MainRepository @Inject constructor(private val pixabayApi: PixabayApi) {
+class MainRepository @Inject constructor(
+        private val pixabayApi: PixabayApi
+    ) {
 
-    suspend fun searchPhotos(q: String): Response<PixabayResponse> {
-        return pixabayApi.searchPhotos(Constants.API_KEY, q, "photo", true)
+    suspend fun searchPhotos(query: String): Response<PixabayResponse> {
+        return pixabayApi.searchPhotos(Constants.API_KEY, query)
     }
-
 }

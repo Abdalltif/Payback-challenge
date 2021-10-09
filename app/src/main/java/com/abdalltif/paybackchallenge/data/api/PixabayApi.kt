@@ -10,9 +10,7 @@ interface PixabayApi {
     @GET("api/")
     suspend fun searchPhotos(
         @Query("key") key: String,
-        @Query("q") q: String,
-        @Query("image_type") image_type: String,
-        @Query("pretty") pretty: Boolean,
+        @Query("q") q: String
     ): Response<PixabayResponse>
 
 }

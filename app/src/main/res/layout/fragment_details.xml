@@ -6,7 +6,7 @@
     <data>
         <variable
             name="mviewmodel"
-            type="com.abdalltif.paybackchallenge.viewmodel.SharedViewModel"
+            type="com.abdalltif.paybackchallenge.ui.SharedViewModel"
         />
     </data>
 
@@ -82,7 +82,7 @@
                     android:id="@+id/imageView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:src="@drawable/ic_comment"/>
 
                 <TextView
@@ -96,7 +96,7 @@
                     android:id="@+id/imageView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:src="@drawable/ic_download" />
 
                 <TextView

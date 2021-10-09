@@ -6,7 +6,7 @@
     <data>
         <variable
             name="mviewmodel"
-            type="com.abdalltif.paybackchallenge.viewmodel.SharedViewModel" />
+            type="com.abdalltif.paybackchallenge.ui.SharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
