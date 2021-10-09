@@ -1,5 +1,7 @@
 package com.abdalltif.paybackchallenge.ui.adapters
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.GONE
@@ -22,6 +24,7 @@ import com.abdalltif.paybackchallenge.data.models.Photo
 import com.abdalltif.paybackchallenge.databinding.PhotoItemBinding
 import com.abdalltif.paybackchallenge.ui.fragments.MainFragmentDirections
 import com.abdalltif.paybackchallenge.utils.AppDiffUtil
+import kotlinx.coroutines.NonCancellable.cancel
 
 class PhotoAdapter(
     private val navController: NavController
@@ -48,9 +51,17 @@ class PhotoAdapter(
 
         // Click listener.
         holder.binding.root.setOnClickListener {
-//            Toast.makeText(holder.itemView.context, "${photoList[position].user} Clicked!", Toast.LENGTH_SHORT).show()
-            val action = MainFragmentDirections.actionMainFragmentToDetailsFragment( photoList[position] )
-            navController.navigate(action)
+
+            val builder = AlertDialog.Builder(it.rootView.context)
+            builder.setMessage(it.rootView.context.getString(R.string.see_more))
+                .setPositiveButton(it.rootView.context.getString(R.string.ok),
+                    DialogInterface.OnClickListener { dialog, id ->
+                        navigateToDetails(photoList[position])
+                    })
+                .setNegativeButton(it.rootView.context.getString(R.string.cancel),
+                    DialogInterface.OnClickListener { dialog, id ->
+                    })
+            builder.create().show()
 
         }
 
@@ -81,4 +92,8 @@ class PhotoAdapter(
         diffResults.dispatchUpdatesTo(this)
     }
 
+    private fun navigateToDetails(photo: Photo){
+        val action = MainFragmentDirections.actionMainFragmentToDetailsFragment( photo )
+        navController.navigate(action)
+    }
 }

@@ -1,6 +1,7 @@
 package com.abdalltif.paybackchallenge.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -49,7 +50,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             // Search cached photos if no internet connection.
             viewModel.searchLocalPhotos("%${getString(R.string.fruits)}%")
-            observeLocalDatabase()
+            observeLocalData()
 
         }
 
@@ -86,26 +87,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
-    fun initPhotoRecyclerView(){
+    private fun initPhotoRecyclerView(){
         val recyclerView = binding.recyclerPhotos
         recyclerView.apply {
             adapter = photoAdapter
             layoutManager = LinearLayoutManager(context)
         }
-    }
-
-    private fun observeLocalDatabase(){
-        viewModel.photosLocalData.observe(requireActivity(), { photos ->
-            if (photos.isEmpty())
-                binding.txtNotFound.visibility = VISIBLE
-            else
-                binding.txtNotFound.visibility = GONE
-
-            binding.progressBar.visibility = GONE
-
-            photoAdapter.setPhotos(photos)
-
-        } )
     }
 
     private fun observeRemoteData(){
@@ -133,6 +120,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 Toast.makeText(requireContext(), "Network Error!", Toast.LENGTH_SHORT).show()
 
             }
+        } )
+    }
+
+    private fun observeLocalData(){
+        viewModel.photosLocalData.observe(requireActivity(), { photos ->
+            if (photos.isEmpty())
+                binding.txtNotFound.visibility = VISIBLE
+            else
+                binding.txtNotFound.visibility = GONE
+
+            binding.progressBar.visibility = GONE
+
+            photoAdapter.setPhotos(photos)
+
         } )
     }
 }

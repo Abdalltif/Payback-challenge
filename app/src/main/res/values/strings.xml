@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fruits">fruits</string>
     <string name="no_photo_found">No photo found</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="see_more">See more?</string>
 </resources>
