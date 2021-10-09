@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.abdalltif.paybackchallenge.R
 import com.abdalltif.paybackchallenge.databinding.FragmentMainBinding
 import com.abdalltif.paybackchallenge.ui.adapters.PhotoAdapter
-import com.abdalltif.paybackchallenge.utils.HelperMethods
 import com.abdalltif.paybackchallenge.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,19 +36,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         // Init recycler view
-        HelperMethods.initPhotoRecyclerView(requireContext(), binding, photoAdapter)
+        initPhotoRecyclerView()
 
         if (viewModel.hasInternetConnection()) {
 
             // Search "fruits" results.
-            HelperMethods.searchPhotos(viewModel, getString(R.string.fruits), true)
+            viewModel.searchPhotos(getString(R.string.fruits))
             // Observe live data.
             observeRemoteData()
 
         } else {
 
             // Search cached photos if no internet connection.
-            HelperMethods.searchPhotos(viewModel, getString(R.string.fruits), false)
+            viewModel.searchLocalPhotos("%${getString(R.string.fruits)}%")
             observeLocalDatabase()
 
         }
@@ -74,25 +74,28 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 binding.progressBar.visibility = VISIBLE
-                // todo: check internet connection.
-                searchPhotos(query, true)
+
+                if (viewModel.hasInternetConnection())
+                    viewModel.searchPhotos(query)
+                else
+                    viewModel.searchLocalPhotos("%$query%")
+
                 searchView.clearFocus()
                 return false
             }
         })
     }
 
-    private fun searchPhotos(query: String, isRomote: Boolean){
-        val searchQuery = "%$query%"
-        if (isRomote)
-            viewModel.searchPhotos(searchQuery)
-        else
-            viewModel.searchLocalPhotos(searchQuery)
+    fun initPhotoRecyclerView(){
+        val recyclerView = binding.recyclerPhotos
+        recyclerView.apply {
+            adapter = photoAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     private fun observeLocalDatabase(){
         viewModel.photosLocalData.observe(requireActivity(), { photos ->
-
             if (photos.isEmpty())
                 binding.txtNotFound.visibility = VISIBLE
             else
