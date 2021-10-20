@@ -42,7 +42,7 @@ class PhotoAdapter(
 
         // Click listener.
         holder.binding.root.setOnClickListener {
-            showDialog(it, position)
+            showDialog(it, photoList[position])
         }
 
         // Init tags recyclerview.
@@ -77,14 +77,14 @@ class PhotoAdapter(
         diffResults.dispatchUpdatesTo(this)
     }
 
-    private fun showDialog(it: View, position: Int) {
-        val builder = AlertDialog.Builder(it.rootView.context)
-        builder.setMessage(it.rootView.context.getString(R.string.see_more))
-            .setPositiveButton(it.rootView.context.getString(R.string.ok),
+    private fun showDialog(view: View, photo: Photo) {
+        val builder = AlertDialog.Builder(view.rootView.context)
+        builder.setMessage(view.rootView.context.getString(R.string.see_more))
+            .setPositiveButton(view.rootView.context.getString(R.string.ok),
                 DialogInterface.OnClickListener { dialog, id ->
-                    navigateToDetails(photoList[position])
+                    navigateToDetails(photo)
                 })
-            .setNegativeButton(it.rootView.context.getString(R.string.cancel),
+            .setNegativeButton(view.rootView.context.getString(R.string.cancel),
                 DialogInterface.OnClickListener { dialog, id ->
                 })
         builder.create().show()
