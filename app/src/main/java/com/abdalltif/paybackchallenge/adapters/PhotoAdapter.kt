@@ -1,4 +1,4 @@
-package com.abdalltif.paybackchallenge.ui.adapters
+package com.abdalltif.paybackchallenge.adapters
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -30,19 +30,19 @@ class PhotoAdapter(
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        // pass photo object to view.
-        holder.binding.mPhoto = photoList[position]
-
-        // set image with coil
-        holder.binding.imageView.load(photoList[position].previewURL) {
-            placeholder(R.drawable.ic_image_ph)
-            crossfade(true)
-            transformations(RoundedCornersTransformation(5f))
-        }
-
-        // Click listener.
-        holder.binding.root.setOnClickListener {
-            showDialog(it, photoList[position])
+        holder.binding.apply {
+            // pass photo object to view.
+            mPhoto = photoList[position]
+            // set image with coil
+            imageView.load(photoList[position].previewURL) {
+                placeholder(R.drawable.ic_image_ph)
+                crossfade(true)
+                transformations(RoundedCornersTransformation(5f))
+            }
+            // Click listener.
+            root.setOnClickListener {
+                showDialog(it, photoList[position])
+            }
         }
 
         // Init tags recyclerview.

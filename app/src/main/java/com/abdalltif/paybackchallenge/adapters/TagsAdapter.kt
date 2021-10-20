@@ -1,4 +1,4 @@
-package com.abdalltif.paybackchallenge.ui.adapters
+package com.abdalltif.paybackchallenge.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

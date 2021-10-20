@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.abdalltif.paybackchallenge.R
 import com.abdalltif.paybackchallenge.data.models.Photo
 import com.abdalltif.paybackchallenge.databinding.FragmentDetailsBinding
-import com.abdalltif.paybackchallenge.ui.adapters.TagsAdapter
-import com.abdalltif.paybackchallenge.ui.SharedViewModel
+import com.abdalltif.paybackchallenge.adapters.TagsAdapter
 
 class DetailsFragment : Fragment(R.layout.fragment_details) {
     val args: DetailsFragmentArgs by navArgs()

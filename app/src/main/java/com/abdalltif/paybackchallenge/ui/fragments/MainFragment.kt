@@ -1,7 +1,6 @@
 package com.abdalltif.paybackchallenge.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.abdalltif.paybackchallenge.R
 import com.abdalltif.paybackchallenge.data.models.Photo
 import com.abdalltif.paybackchallenge.databinding.FragmentMainBinding
-import com.abdalltif.paybackchallenge.ui.adapters.PhotoAdapter
+import com.abdalltif.paybackchallenge.adapters.PhotoAdapter
 import com.abdalltif.paybackchallenge.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
