@@ -37,7 +37,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         // Init recycler view
-        initPhotoRecyclerView()
+        setupPhotoRecyclerView()
+
+        setupPullToRefresh()
 
         if (viewModel.hasInternetConnection()) {
 
@@ -87,12 +89,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         })
     }
 
-    private fun initPhotoRecyclerView(){
+    private fun setupPhotoRecyclerView(){
         val recyclerView = binding.recyclerPhotos
         recyclerView.apply {
             adapter = photoAdapter
             layoutManager = LinearLayoutManager(context)
         }
+    }
+
+    private fun setupPullToRefresh() {
+        binding.swipe.setOnRefreshListener {
+            viewModel.searchPhotos(getString(R.string.fruits))
+        }
+
     }
 
     private fun observeRemoteData(){
@@ -105,6 +114,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     binding.txtNotFound.visibility = GONE
 
                 binding.progressBar.visibility = GONE
+                binding.swipe.isRefreshing = false
 
                 val photoList = response.body()!!.hits
                 photoAdapter.setPhotos(photoList)
@@ -115,6 +125,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             } else {
 
                 binding.progressBar.visibility = GONE
+                binding.swipe.isRefreshing = false
                 Toast.makeText(requireContext(), getString(R.string.network_error), Toast.LENGTH_SHORT).show()
 
             }
