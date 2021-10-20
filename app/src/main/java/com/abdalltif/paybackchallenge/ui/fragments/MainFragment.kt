@@ -147,6 +147,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             binding.progressBar.visibility = GONE
 
+            binding.swipe.isRefreshing = false
+
             photoAdapter.setPhotos(photos)
         } )
     }
