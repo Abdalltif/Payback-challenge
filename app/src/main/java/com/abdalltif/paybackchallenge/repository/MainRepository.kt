@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class MainRepository @Inject constructor(
         private val pixabayApi: PixabayApi
-    ) {
+    ) : IPhotoRepository {
 
-    suspend fun searchPhotos(query: String): Response<PixabayResponse> {
+    override suspend fun searchPhotos(query: String): Response<PixabayResponse> {
         return pixabayApi.searchPhotos(Constants.API_KEY, query)
     }
 }
