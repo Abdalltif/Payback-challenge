@@ -16,6 +16,7 @@ import com.abdalltif.paybackchallenge.data.models.Photo
 import com.abdalltif.paybackchallenge.databinding.FragmentMainBinding
 import com.abdalltif.paybackchallenge.adapters.PhotoAdapter
 import com.abdalltif.paybackchallenge.ui.SharedViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,7 +50,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             observeRemoteData()
 
         } else {
-
+            binding.root.snakeBar(getString(R.string.no_connection), Snackbar.LENGTH_LONG)
             // Search cached photos if no internet connection.
             viewModel.searchLocalPhotos("%${getString(R.string.fruits)}%")
             observeLocalData()
@@ -151,6 +152,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             photoAdapter.setPhotos(photos)
         } )
+    }
+
+    fun View.snakeBar(message: String, duration: Int = Snackbar.LENGTH_LONG){
+        Snackbar.make(this, message, duration).show()
     }
 }
 

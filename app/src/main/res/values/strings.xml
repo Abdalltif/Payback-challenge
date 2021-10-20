@@ -8,4 +8,5 @@
     <string name="cancel">Cancel</string>
     <string name="see_more">See more?</string>
     <string name="network_error">Network Error!</string>
+    <string name="no_connection">No internet connection</string>
 </resources>
